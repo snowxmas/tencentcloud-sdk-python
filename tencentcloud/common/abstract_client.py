@@ -273,7 +273,7 @@ class AbstractClient(object):
             endpoint = self._endpoint
         return endpoint
 
-    def call(self, action, params, options=None):
+    async def call(self, action, params, options=None):
         endpoint = self._get_endpoint()
 
         req_inter = RequestInternal(endpoint,
@@ -281,11 +281,7 @@ class AbstractClient(object):
                                     self._requestPath)
         self._build_req_inter(action, params, req_inter, options)
 
-        resp_inter = self.request.send_request(req_inter)
+        resp_inter = await self.request.send_request(req_inter)
         self._check_status(resp_inter)
         data = resp_inter.data
-        if sys.version_info[0] > 2:
-            data = data.decode()
-        else:
-            data = data.decode('UTF-8')
         return data

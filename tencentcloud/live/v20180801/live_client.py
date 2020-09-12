@@ -1414,7 +1414,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveDomainPlayInfoList(self, request):
+    async def DescribeLiveDomainPlayInfoList(self, request):
         """查询实时的域名维度下行播放数据，由于数据处理有耗时，接口默认查询4分钟前的准实时数据。
 
         :param request: Request instance for DescribeLiveDomainPlayInfoList.
@@ -1424,7 +1424,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveDomainPlayInfoList", params)
+            body = await self.call("DescribeLiveDomainPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveDomainPlayInfoListResponse()
