@@ -25,7 +25,7 @@ class LiveClient(AbstractClient):
     _endpoint = 'live.tencentcloudapi.com'
 
 
-    def AddDelayLiveStream(self, request):
+    async def AddDelayLiveStream(self, request):
         """对流设置延播时间
         注意：如果在推流前设置延播，需要提前5分钟设置。
         目前该接口只支持流粒度的，域名及应用粒度功能支持当前开发中。
@@ -38,7 +38,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("AddDelayLiveStream", params)
+            body = await self.call("AddDelayLiveStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.AddDelayLiveStreamResponse()
@@ -56,7 +56,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def AddLiveDomain(self, request):
+    async def AddLiveDomain(self, request):
         """添加域名，一次只能提交一个域名。域名必须已备案。
 
         :param request: Request instance for AddLiveDomain.
@@ -66,7 +66,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("AddLiveDomain", params)
+            body = await self.call("AddLiveDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.AddLiveDomainResponse()
@@ -84,7 +84,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def AddLiveWatermark(self, request):
+    async def AddLiveWatermark(self, request):
         """添加水印，成功返回水印 ID 后，需要调用[CreateLiveWatermarkRule](/document/product/267/32629)接口将水印 ID 绑定到流使用。
 
         :param request: Request instance for AddLiveWatermark.
@@ -94,7 +94,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("AddLiveWatermark", params)
+            body = await self.call("AddLiveWatermark", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.AddLiveWatermarkResponse()
@@ -112,7 +112,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def BindLiveDomainCert(self, request):
+    async def BindLiveDomainCert(self, request):
         """域名绑定证书。
         注意：需先调用添加证书接口进行证书添加。获取到证书Id后再调用该接口进行绑定。
 
@@ -123,7 +123,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("BindLiveDomainCert", params)
+            body = await self.call("BindLiveDomainCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.BindLiveDomainCertResponse()
@@ -141,7 +141,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CancelCommonMixStream(self, request):
+    async def CancelCommonMixStream(self, request):
         """该接口用来取消混流。用法与 mix_streamv2.cancel_mix_stream 基本一致。
 
         :param request: Request instance for CancelCommonMixStream.
@@ -151,7 +151,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CancelCommonMixStream", params)
+            body = await self.call("CancelCommonMixStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CancelCommonMixStreamResponse()
@@ -169,7 +169,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateCommonMixStream(self, request):
+    async def CreateCommonMixStream(self, request):
         """该接口用来创建通用混流。用法与旧接口 mix_streamv2.start_mix_stream_advanced 基本一致。
         注意：当前最多支持16路混流。
         最佳实践：https://cloud.tencent.com/document/product/267/45566
@@ -181,7 +181,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateCommonMixStream", params)
+            body = await self.call("CreateCommonMixStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateCommonMixStreamResponse()
@@ -199,7 +199,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveCallbackRule(self, request):
+    async def CreateLiveCallbackRule(self, request):
         """创建回调规则，需要先调用[CreateLiveCallbackTemplate](/document/product/267/32637)接口创建回调模板，将返回的模板id绑定到域名/路径进行使用。
         <br>回调协议相关文档：[事件消息通知](/document/product/267/32744)。
 
@@ -210,7 +210,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveCallbackRule", params)
+            body = await self.call("CreateLiveCallbackRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveCallbackRuleResponse()
@@ -228,7 +228,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveCallbackTemplate(self, request):
+    async def CreateLiveCallbackTemplate(self, request):
         """创建回调模板，成功返回模板id后，需要调用[CreateLiveCallbackRule](/document/product/267/32638)接口将模板 ID 绑定到域名/路径使用。
         <br>回调协议相关文档：[事件消息通知](/document/product/267/32744)。
         注意：至少填写一个回调 URL。
@@ -240,7 +240,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveCallbackTemplate", params)
+            body = await self.call("CreateLiveCallbackTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveCallbackTemplateResponse()
@@ -258,7 +258,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveCert(self, request):
+    async def CreateLiveCert(self, request):
         """添加证书
 
         :param request: Request instance for CreateLiveCert.
@@ -268,7 +268,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveCert", params)
+            body = await self.call("CreateLiveCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveCertResponse()
@@ -286,7 +286,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveRecord(self, request):
+    async def CreateLiveRecord(self, request):
         """- 使用前提
           1. 录制文件存放于点播平台，所以用户如需使用录制功能，需首先自行开通点播服务。
           2. 录制文件存放后相关费用（含存储以及下行播放流量）按照点播平台计费方式收取，具体请参考 [对应文档](https://cloud.tencent.com/document/product/266/2838)。
@@ -311,7 +311,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveRecord", params)
+            body = await self.call("CreateLiveRecord", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveRecordResponse()
@@ -329,7 +329,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveRecordRule(self, request):
+    async def CreateLiveRecordRule(self, request):
         """创建录制规则，需要先调用[CreateLiveRecordTemplate](/document/product/267/32614)接口创建录制模板，将返回的模板id绑定到流使用。
         <br>录制相关文档：[直播录制](/document/product/267/32739)。
 
@@ -340,7 +340,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveRecordRule", params)
+            body = await self.call("CreateLiveRecordRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveRecordRuleResponse()
@@ -358,7 +358,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveRecordTemplate(self, request):
+    async def CreateLiveRecordTemplate(self, request):
         """创建录制模板，成功返回模板id后，需要调用[CreateLiveRecordRule](/document/product/267/32615)接口，将模板id绑定到流进行使用。
         <br>录制相关文档：[直播录制](/document/product/267/32739)。
 
@@ -369,7 +369,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveRecordTemplate", params)
+            body = await self.call("CreateLiveRecordTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveRecordTemplateResponse()
@@ -387,7 +387,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveSnapshotRule(self, request):
+    async def CreateLiveSnapshotRule(self, request):
         """创建截图规则，需要先调用[CreateLiveSnapshotTemplate](/document/product/267/32624)接口创建截图模板，然后将返回的模板 ID 绑定到流进行使用。
         <br>截图相关文档：[直播截图](/document/product/267/32737)。
         注意：单个域名仅支持关联一个截图模板。
@@ -399,7 +399,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveSnapshotRule", params)
+            body = await self.call("CreateLiveSnapshotRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveSnapshotRuleResponse()
@@ -417,7 +417,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveSnapshotTemplate(self, request):
+    async def CreateLiveSnapshotTemplate(self, request):
         """创建截图模板，成功返回模板id后，需要调用[CreateLiveSnapshotRule](/document/product/267/32625)接口，将模板id绑定到流使用。
         <br>截图相关文档：[直播截图](/document/product/267/32737)。
 
@@ -428,7 +428,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveSnapshotTemplate", params)
+            body = await self.call("CreateLiveSnapshotTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveSnapshotTemplateResponse()
@@ -446,7 +446,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveTranscodeRule(self, request):
+    async def CreateLiveTranscodeRule(self, request):
         """创建转码规则，需要先调用[CreateLiveTranscodeTemplate](/document/product/267/32646)接口创建转码模板，将返回的模板id绑定到流使用。
         <br>转码相关文档：[直播转封装及转码](/document/product/267/32736)。
 
@@ -457,7 +457,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveTranscodeRule", params)
+            body = await self.call("CreateLiveTranscodeRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveTranscodeRuleResponse()
@@ -475,7 +475,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveTranscodeTemplate(self, request):
+    async def CreateLiveTranscodeTemplate(self, request):
         """创建转码模板，成功返回模板id后，需要调用[CreateLiveTranscodeRule](/document/product/267/32647)接口，将返回的模板id绑定到流使用。
         <br>转码相关文档：[直播转封装及转码](/document/product/267/32736)。
 
@@ -486,7 +486,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveTranscodeTemplate", params)
+            body = await self.call("CreateLiveTranscodeTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveTranscodeTemplateResponse()
@@ -504,7 +504,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateLiveWatermarkRule(self, request):
+    async def CreateLiveWatermarkRule(self, request):
         """创建水印规则，需要先调用[AddLiveWatermark](/document/product/267/30154)接口添加水印，将返回的水印id绑定到流使用。
 
         :param request: Request instance for CreateLiveWatermarkRule.
@@ -514,7 +514,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateLiveWatermarkRule", params)
+            body = await self.call("CreateLiveWatermarkRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateLiveWatermarkRuleResponse()
@@ -532,7 +532,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreatePullStreamConfig(self, request):
+    async def CreatePullStreamConfig(self, request):
         """创建临时拉流转推任务，目前限制添加10条任务。
 
         注意：该接口用于创建临时拉流转推任务，
@@ -546,7 +546,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreatePullStreamConfig", params)
+            body = await self.call("CreatePullStreamConfig", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreatePullStreamConfigResponse()
@@ -564,7 +564,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def CreateRecordTask(self, request):
+    async def CreateRecordTask(self, request):
         """创建一个在指定时间启动、结束的录制任务，并使用指定录制模板ID对应的配置进行录制。
         - 使用前提
         1. 录制文件存放于点播平台，所以用户如需使用录制功能，需首先自行开通点播服务。
@@ -582,7 +582,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("CreateRecordTask", params)
+            body = await self.call("CreateRecordTask", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.CreateRecordTaskResponse()
@@ -600,7 +600,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveCallbackRule(self, request):
+    async def DeleteLiveCallbackRule(self, request):
         """删除回调规则。
 
         :param request: Request instance for DeleteLiveCallbackRule.
@@ -610,7 +610,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveCallbackRule", params)
+            body = await self.call("DeleteLiveCallbackRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveCallbackRuleResponse()
@@ -628,7 +628,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveCallbackTemplate(self, request):
+    async def DeleteLiveCallbackTemplate(self, request):
         """删除回调模板。
 
         :param request: Request instance for DeleteLiveCallbackTemplate.
@@ -638,7 +638,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveCallbackTemplate", params)
+            body = await self.call("DeleteLiveCallbackTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveCallbackTemplateResponse()
@@ -656,7 +656,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveCert(self, request):
+    async def DeleteLiveCert(self, request):
         """删除域名对应的证书
 
         :param request: Request instance for DeleteLiveCert.
@@ -666,7 +666,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveCert", params)
+            body = await self.call("DeleteLiveCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveCertResponse()
@@ -684,7 +684,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveDomain(self, request):
+    async def DeleteLiveDomain(self, request):
         """删除已添加的直播域名
 
         :param request: Request instance for DeleteLiveDomain.
@@ -694,7 +694,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveDomain", params)
+            body = await self.call("DeleteLiveDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveDomainResponse()
@@ -712,7 +712,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveRecord(self, request):
+    async def DeleteLiveRecord(self, request):
         """注：DeleteLiveRecord 接口仅用于删除录制任务记录，不具备停止录制的功能，也不能删除正在进行中的录制。如果需要停止录制任务，请使用终止录制[StopLiveRecord](/document/product/267/30146) 接口。
 
         :param request: Request instance for DeleteLiveRecord.
@@ -722,7 +722,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveRecord", params)
+            body = await self.call("DeleteLiveRecord", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveRecordResponse()
@@ -740,7 +740,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveRecordRule(self, request):
+    async def DeleteLiveRecordRule(self, request):
         """删除录制规则。
 
         :param request: Request instance for DeleteLiveRecordRule.
@@ -750,7 +750,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveRecordRule", params)
+            body = await self.call("DeleteLiveRecordRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveRecordRuleResponse()
@@ -768,7 +768,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveRecordTemplate(self, request):
+    async def DeleteLiveRecordTemplate(self, request):
         """删除录制模板。
 
         :param request: Request instance for DeleteLiveRecordTemplate.
@@ -778,7 +778,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveRecordTemplate", params)
+            body = await self.call("DeleteLiveRecordTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveRecordTemplateResponse()
@@ -796,7 +796,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveSnapshotRule(self, request):
+    async def DeleteLiveSnapshotRule(self, request):
         """删除截图规则。
 
         :param request: Request instance for DeleteLiveSnapshotRule.
@@ -806,7 +806,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveSnapshotRule", params)
+            body = await self.call("DeleteLiveSnapshotRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveSnapshotRuleResponse()
@@ -824,7 +824,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveSnapshotTemplate(self, request):
+    async def DeleteLiveSnapshotTemplate(self, request):
         """删除截图模板
 
         :param request: Request instance for DeleteLiveSnapshotTemplate.
@@ -834,7 +834,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveSnapshotTemplate", params)
+            body = await self.call("DeleteLiveSnapshotTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveSnapshotTemplateResponse()
@@ -852,7 +852,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveTranscodeRule(self, request):
+    async def DeleteLiveTranscodeRule(self, request):
         """删除转码规则。
         DomainName+AppName+StreamName+TemplateId唯一标识单个转码规则，如需删除需要强匹配。其中TemplateId必填，其余参数为空时也需要传空字符串进行强匹配。
 
@@ -863,7 +863,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveTranscodeRule", params)
+            body = await self.call("DeleteLiveTranscodeRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveTranscodeRuleResponse()
@@ -881,7 +881,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveTranscodeTemplate(self, request):
+    async def DeleteLiveTranscodeTemplate(self, request):
         """删除转码模板。
 
         :param request: Request instance for DeleteLiveTranscodeTemplate.
@@ -891,7 +891,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveTranscodeTemplate", params)
+            body = await self.call("DeleteLiveTranscodeTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveTranscodeTemplateResponse()
@@ -909,7 +909,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveWatermark(self, request):
+    async def DeleteLiveWatermark(self, request):
         """删除水印。
 
         :param request: Request instance for DeleteLiveWatermark.
@@ -919,7 +919,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveWatermark", params)
+            body = await self.call("DeleteLiveWatermark", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveWatermarkResponse()
@@ -937,7 +937,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteLiveWatermarkRule(self, request):
+    async def DeleteLiveWatermarkRule(self, request):
         """删除水印规则
 
         :param request: Request instance for DeleteLiveWatermarkRule.
@@ -947,7 +947,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteLiveWatermarkRule", params)
+            body = await self.call("DeleteLiveWatermarkRule", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteLiveWatermarkRuleResponse()
@@ -965,7 +965,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeletePullStreamConfig(self, request):
+    async def DeletePullStreamConfig(self, request):
         """删除直播拉流配置。
 
         :param request: Request instance for DeletePullStreamConfig.
@@ -975,7 +975,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeletePullStreamConfig", params)
+            body = await self.call("DeletePullStreamConfig", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeletePullStreamConfigResponse()
@@ -993,7 +993,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DeleteRecordTask(self, request):
+    async def DeleteRecordTask(self, request):
         """删除录制任务配置。删除操作不影响正在运行当中的任务，仅对删除之后新的推流有效。
 
         :param request: Request instance for DeleteRecordTask.
@@ -1003,7 +1003,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DeleteRecordTask", params)
+            body = await self.call("DeleteRecordTask", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DeleteRecordTaskResponse()
@@ -1021,7 +1021,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeAllStreamPlayInfoList(self, request):
+    async def DescribeAllStreamPlayInfoList(self, request):
         """输入某个时间点（1分钟维度），查询该时间点所有流的下行信息。
 
         :param request: Request instance for DescribeAllStreamPlayInfoList.
@@ -1031,7 +1031,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeAllStreamPlayInfoList", params)
+            body = await self.call("DescribeAllStreamPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeAllStreamPlayInfoListResponse()
@@ -1049,7 +1049,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeBillBandwidthAndFluxList(self, request):
+    async def DescribeBillBandwidthAndFluxList(self, request):
         """直播计费带宽和流量数据查询。
 
         :param request: Request instance for DescribeBillBandwidthAndFluxList.
@@ -1059,7 +1059,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeBillBandwidthAndFluxList", params)
+            body = await self.call("DescribeBillBandwidthAndFluxList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeBillBandwidthAndFluxListResponse()
@@ -1077,7 +1077,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeConcurrentRecordStreamNum(self, request):
+    async def DescribeConcurrentRecordStreamNum(self, request):
         """查询并发录制路数，对慢直播和普通直播适用。
 
         :param request: Request instance for DescribeConcurrentRecordStreamNum.
@@ -1087,7 +1087,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeConcurrentRecordStreamNum", params)
+            body = await self.call("DescribeConcurrentRecordStreamNum", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeConcurrentRecordStreamNumResponse()
@@ -1105,7 +1105,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeDeliverBandwidthList(self, request):
+    async def DescribeDeliverBandwidthList(self, request):
         """查询直播转推计费带宽，查询时间范围最大支持3个月内的数据，时间跨度最长31天。
 
         :param request: Request instance for DescribeDeliverBandwidthList.
@@ -1115,7 +1115,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeDeliverBandwidthList", params)
+            body = await self.call("DescribeDeliverBandwidthList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeDeliverBandwidthListResponse()
@@ -1133,7 +1133,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeGroupProIspPlayInfoList(self, request):
+    async def DescribeGroupProIspPlayInfoList(self, request):
         """查询按省份和运营商分组的下行播放数据。
 
         :param request: Request instance for DescribeGroupProIspPlayInfoList.
@@ -1143,7 +1143,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeGroupProIspPlayInfoList", params)
+            body = await self.call("DescribeGroupProIspPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeGroupProIspPlayInfoListResponse()
@@ -1161,7 +1161,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeHttpStatusInfoList(self, request):
+    async def DescribeHttpStatusInfoList(self, request):
         """查询某段时间内5分钟粒度的各播放http状态码的个数。
         备注：数据延迟1小时，如10:00-10:59点的数据12点才能查到。
 
@@ -1172,7 +1172,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeHttpStatusInfoList", params)
+            body = await self.call("DescribeHttpStatusInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeHttpStatusInfoListResponse()
@@ -1190,7 +1190,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveCallbackRules(self, request):
+    async def DescribeLiveCallbackRules(self, request):
         """获取回调规则列表
 
         :param request: Request instance for DescribeLiveCallbackRules.
@@ -1200,7 +1200,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveCallbackRules", params)
+            body = await self.call("DescribeLiveCallbackRules", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveCallbackRulesResponse()
@@ -1218,7 +1218,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveCallbackTemplate(self, request):
+    async def DescribeLiveCallbackTemplate(self, request):
         """获取单个回调模板。
 
         :param request: Request instance for DescribeLiveCallbackTemplate.
@@ -1228,7 +1228,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveCallbackTemplate", params)
+            body = await self.call("DescribeLiveCallbackTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveCallbackTemplateResponse()
@@ -1246,7 +1246,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveCallbackTemplates(self, request):
+    async def DescribeLiveCallbackTemplates(self, request):
         """获取回调模板列表
 
         :param request: Request instance for DescribeLiveCallbackTemplates.
@@ -1256,7 +1256,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveCallbackTemplates", params)
+            body = await self.call("DescribeLiveCallbackTemplates", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveCallbackTemplatesResponse()
@@ -1274,7 +1274,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveCert(self, request):
+    async def DescribeLiveCert(self, request):
         """获取证书信息
 
         :param request: Request instance for DescribeLiveCert.
@@ -1284,7 +1284,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveCert", params)
+            body = await self.call("DescribeLiveCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveCertResponse()
@@ -1302,7 +1302,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveCerts(self, request):
+    async def DescribeLiveCerts(self, request):
         """获取证书信息列表
 
         :param request: Request instance for DescribeLiveCerts.
@@ -1312,7 +1312,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveCerts", params)
+            body = await self.call("DescribeLiveCerts", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveCertsResponse()
@@ -1330,7 +1330,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveDelayInfoList(self, request):
+    async def DescribeLiveDelayInfoList(self, request):
         """获取直播延播列表。
 
         :param request: Request instance for DescribeLiveDelayInfoList.
@@ -1340,7 +1340,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveDelayInfoList", params)
+            body = await self.call("DescribeLiveDelayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveDelayInfoListResponse()
@@ -1358,7 +1358,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveDomain(self, request):
+    async def DescribeLiveDomain(self, request):
         """查询直播域名信息。
 
         :param request: Request instance for DescribeLiveDomain.
@@ -1368,7 +1368,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveDomain", params)
+            body = await self.call("DescribeLiveDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveDomainResponse()
@@ -1386,7 +1386,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveDomainCert(self, request):
+    async def DescribeLiveDomainCert(self, request):
         """获取域名证书信息。
 
         :param request: Request instance for DescribeLiveDomainCert.
@@ -1396,7 +1396,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveDomainCert", params)
+            body = await self.call("DescribeLiveDomainCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveDomainCertResponse()
@@ -1442,7 +1442,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveDomains(self, request):
+    async def DescribeLiveDomains(self, request):
         """根据域名状态、类型等信息查询用户的域名信息。
 
         :param request: Request instance for DescribeLiveDomains.
@@ -1452,7 +1452,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveDomains", params)
+            body = await self.call("DescribeLiveDomains", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveDomainsResponse()
@@ -1470,7 +1470,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveForbidStreamList(self, request):
+    async def DescribeLiveForbidStreamList(self, request):
         """获取禁推流列表。
 
         :param request: Request instance for DescribeLiveForbidStreamList.
@@ -1480,7 +1480,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveForbidStreamList", params)
+            body = await self.call("DescribeLiveForbidStreamList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveForbidStreamListResponse()
@@ -1498,7 +1498,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLivePackageInfo(self, request):
+    async def DescribeLivePackageInfo(self, request):
         """查询用户套餐包总量、使用量、剩余量、包状态、购买时间和过期时间等。
 
         :param request: Request instance for DescribeLivePackageInfo.
@@ -1508,7 +1508,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLivePackageInfo", params)
+            body = await self.call("DescribeLivePackageInfo", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLivePackageInfoResponse()
@@ -1526,7 +1526,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLivePlayAuthKey(self, request):
+    async def DescribeLivePlayAuthKey(self, request):
         """查询播放鉴权key。
 
         :param request: Request instance for DescribeLivePlayAuthKey.
@@ -1536,7 +1536,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLivePlayAuthKey", params)
+            body = await self.call("DescribeLivePlayAuthKey", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLivePlayAuthKeyResponse()
@@ -1554,7 +1554,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLivePushAuthKey(self, request):
+    async def DescribeLivePushAuthKey(self, request):
         """查询直播推流鉴权key
 
         :param request: Request instance for DescribeLivePushAuthKey.
@@ -1564,7 +1564,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLivePushAuthKey", params)
+            body = await self.call("DescribeLivePushAuthKey", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLivePushAuthKeyResponse()
@@ -1582,7 +1582,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveRecordRules(self, request):
+    async def DescribeLiveRecordRules(self, request):
         """获取录制规则列表
 
         :param request: Request instance for DescribeLiveRecordRules.
@@ -1592,7 +1592,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveRecordRules", params)
+            body = await self.call("DescribeLiveRecordRules", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveRecordRulesResponse()
@@ -1610,7 +1610,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveRecordTemplate(self, request):
+    async def DescribeLiveRecordTemplate(self, request):
         """获取单个录制模板。
 
         :param request: Request instance for DescribeLiveRecordTemplate.
@@ -1620,7 +1620,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveRecordTemplate", params)
+            body = await self.call("DescribeLiveRecordTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveRecordTemplateResponse()
@@ -1638,7 +1638,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveRecordTemplates(self, request):
+    async def DescribeLiveRecordTemplates(self, request):
         """获取录制模板列表。
 
         :param request: Request instance for DescribeLiveRecordTemplates.
@@ -1648,7 +1648,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveRecordTemplates", params)
+            body = await self.call("DescribeLiveRecordTemplates", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveRecordTemplatesResponse()
@@ -1666,7 +1666,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveSnapshotRules(self, request):
+    async def DescribeLiveSnapshotRules(self, request):
         """获取截图规则列表
 
         :param request: Request instance for DescribeLiveSnapshotRules.
@@ -1676,7 +1676,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveSnapshotRules", params)
+            body = await self.call("DescribeLiveSnapshotRules", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveSnapshotRulesResponse()
@@ -1694,7 +1694,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveSnapshotTemplate(self, request):
+    async def DescribeLiveSnapshotTemplate(self, request):
         """获取单个截图模板。
 
         :param request: Request instance for DescribeLiveSnapshotTemplate.
@@ -1704,7 +1704,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveSnapshotTemplate", params)
+            body = await self.call("DescribeLiveSnapshotTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveSnapshotTemplateResponse()
@@ -1722,7 +1722,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveSnapshotTemplates(self, request):
+    async def DescribeLiveSnapshotTemplates(self, request):
         """获取截图模板列表。
 
         :param request: Request instance for DescribeLiveSnapshotTemplates.
@@ -1732,7 +1732,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveSnapshotTemplates", params)
+            body = await self.call("DescribeLiveSnapshotTemplates", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveSnapshotTemplatesResponse()
@@ -1750,7 +1750,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveStreamEventList(self, request):
+    async def DescribeLiveStreamEventList(self, request):
         """用于查询推断流事件。<br>
 
         注意：该接口可通过使用IsFilter进行过滤，返回推流历史记录。
@@ -1762,7 +1762,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveStreamEventList", params)
+            body = await self.call("DescribeLiveStreamEventList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveStreamEventListResponse()
@@ -1780,7 +1780,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveStreamOnlineList(self, request):
+    async def DescribeLiveStreamOnlineList(self, request):
         """返回正在直播中的流列表。适用于推流成功后查询在线流信息。
         注意：该接口仅适用于流数少于2万路的情况，对于流数较大用户请联系售后。
 
@@ -1791,7 +1791,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveStreamOnlineList", params)
+            body = await self.call("DescribeLiveStreamOnlineList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveStreamOnlineListResponse()
@@ -1809,7 +1809,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveStreamPublishedList(self, request):
+    async def DescribeLiveStreamPublishedList(self, request):
         """返回已经推过流的流列表。<br>
         注意：分页最多支持查询1万条记录，可通过调整查询时间范围来获取更多数据。
 
@@ -1820,7 +1820,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveStreamPublishedList", params)
+            body = await self.call("DescribeLiveStreamPublishedList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveStreamPublishedListResponse()
@@ -1838,7 +1838,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveStreamPushInfoList(self, request):
+    async def DescribeLiveStreamPushInfoList(self, request):
         """查询所有实时流的推流信息，包括客户端IP，服务端IP，帧率，码率，域名，开始推流时间。
 
         :param request: Request instance for DescribeLiveStreamPushInfoList.
@@ -1848,7 +1848,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveStreamPushInfoList", params)
+            body = await self.call("DescribeLiveStreamPushInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveStreamPushInfoListResponse()
@@ -1866,7 +1866,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveStreamState(self, request):
+    async def DescribeLiveStreamState(self, request):
         """返回直播中、无推流或者禁播等状态
 
         :param request: Request instance for DescribeLiveStreamState.
@@ -1876,7 +1876,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveStreamState", params)
+            body = await self.call("DescribeLiveStreamState", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveStreamStateResponse()
@@ -1894,7 +1894,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveTranscodeDetailInfo(self, request):
+    async def DescribeLiveTranscodeDetailInfo(self, request):
         """支持查询某天或某段时间的转码详细信息。
 
         :param request: Request instance for DescribeLiveTranscodeDetailInfo.
@@ -1904,7 +1904,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveTranscodeDetailInfo", params)
+            body = await self.call("DescribeLiveTranscodeDetailInfo", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveTranscodeDetailInfoResponse()
@@ -1922,7 +1922,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveTranscodeRules(self, request):
+    async def DescribeLiveTranscodeRules(self, request):
         """获取转码规则列表
 
         :param request: Request instance for DescribeLiveTranscodeRules.
@@ -1932,7 +1932,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveTranscodeRules", params)
+            body = await self.call("DescribeLiveTranscodeRules", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveTranscodeRulesResponse()
@@ -1950,7 +1950,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveTranscodeTemplate(self, request):
+    async def DescribeLiveTranscodeTemplate(self, request):
         """获取单个转码模板。
 
         :param request: Request instance for DescribeLiveTranscodeTemplate.
@@ -1960,7 +1960,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveTranscodeTemplate", params)
+            body = await self.call("DescribeLiveTranscodeTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveTranscodeTemplateResponse()
@@ -1978,7 +1978,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveTranscodeTemplates(self, request):
+    async def DescribeLiveTranscodeTemplates(self, request):
         """获取转码模板列表。
 
         :param request: Request instance for DescribeLiveTranscodeTemplates.
@@ -1988,7 +1988,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveTranscodeTemplates", params)
+            body = await self.call("DescribeLiveTranscodeTemplates", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveTranscodeTemplatesResponse()
@@ -2006,7 +2006,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveWatermark(self, request):
+    async def DescribeLiveWatermark(self, request):
         """获取单个水印信息。
 
         :param request: Request instance for DescribeLiveWatermark.
@@ -2016,7 +2016,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveWatermark", params)
+            body = await self.call("DescribeLiveWatermark", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveWatermarkResponse()
@@ -2034,7 +2034,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveWatermarkRules(self, request):
+    async def DescribeLiveWatermarkRules(self, request):
         """获取水印规则列表。
 
         :param request: Request instance for DescribeLiveWatermarkRules.
@@ -2044,7 +2044,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveWatermarkRules", params)
+            body = await self.call("DescribeLiveWatermarkRules", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveWatermarkRulesResponse()
@@ -2062,7 +2062,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLiveWatermarks(self, request):
+    async def DescribeLiveWatermarks(self, request):
         """查询水印列表。
 
         :param request: Request instance for DescribeLiveWatermarks.
@@ -2072,7 +2072,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLiveWatermarks", params)
+            body = await self.call("DescribeLiveWatermarks", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLiveWatermarksResponse()
@@ -2090,7 +2090,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeLogDownloadList(self, request):
+    async def DescribeLogDownloadList(self, request):
         """批量获取日志URL。
 
         :param request: Request instance for DescribeLogDownloadList.
@@ -2100,7 +2100,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeLogDownloadList", params)
+            body = await self.call("DescribeLogDownloadList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeLogDownloadListResponse()
@@ -2118,7 +2118,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribePlayErrorCodeDetailInfoList(self, request):
+    async def DescribePlayErrorCodeDetailInfoList(self, request):
         """查询下行播放错误码信息，某段时间内1分钟粒度的各http错误码出现的次数，包括4xx，5xx。
 
 
@@ -2129,7 +2129,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribePlayErrorCodeDetailInfoList", params)
+            body = await self.call("DescribePlayErrorCodeDetailInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribePlayErrorCodeDetailInfoListResponse()
@@ -2147,7 +2147,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribePlayErrorCodeSumInfoList(self, request):
+    async def DescribePlayErrorCodeSumInfoList(self, request):
         """查询下行播放错误码信息。
 
         :param request: Request instance for DescribePlayErrorCodeSumInfoList.
@@ -2157,7 +2157,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribePlayErrorCodeSumInfoList", params)
+            body = await self.call("DescribePlayErrorCodeSumInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribePlayErrorCodeSumInfoListResponse()
@@ -2175,7 +2175,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeProIspPlaySumInfoList(self, request):
+    async def DescribeProIspPlaySumInfoList(self, request):
         """查询某段时间内每个国家地区每个省份每个运营商的平均每秒流量，总流量，总请求数信息。
 
         :param request: Request instance for DescribeProIspPlaySumInfoList.
@@ -2185,7 +2185,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeProIspPlaySumInfoList", params)
+            body = await self.call("DescribeProIspPlaySumInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeProIspPlaySumInfoListResponse()
@@ -2203,7 +2203,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeProvinceIspPlayInfoList(self, request):
+    async def DescribeProvinceIspPlayInfoList(self, request):
         """查询某省份某运营商下行播放数据，包括带宽，流量，请求数，并发连接数信息。
 
         :param request: Request instance for DescribeProvinceIspPlayInfoList.
@@ -2213,7 +2213,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeProvinceIspPlayInfoList", params)
+            body = await self.call("DescribeProvinceIspPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeProvinceIspPlayInfoListResponse()
@@ -2231,7 +2231,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribePullStreamConfigs(self, request):
+    async def DescribePullStreamConfigs(self, request):
         """查询直播拉流配置。
 
         :param request: Request instance for DescribePullStreamConfigs.
@@ -2241,7 +2241,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribePullStreamConfigs", params)
+            body = await self.call("DescribePullStreamConfigs", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribePullStreamConfigsResponse()
@@ -2259,7 +2259,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeScreenShotSheetNumList(self, request):
+    async def DescribeScreenShotSheetNumList(self, request):
         """接口用来查询直播增值业务--截图的张数
 
         :param request: Request instance for DescribeScreenShotSheetNumList.
@@ -2269,7 +2269,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeScreenShotSheetNumList", params)
+            body = await self.call("DescribeScreenShotSheetNumList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeScreenShotSheetNumListResponse()
@@ -2287,7 +2287,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeStreamDayPlayInfoList(self, request):
+    async def DescribeStreamDayPlayInfoList(self, request):
         """查询天维度每条流的播放数据，包括总流量等。
 
         :param request: Request instance for DescribeStreamDayPlayInfoList.
@@ -2297,7 +2297,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeStreamDayPlayInfoList", params)
+            body = await self.call("DescribeStreamDayPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeStreamDayPlayInfoListResponse()
@@ -2315,7 +2315,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeStreamPlayInfoList(self, request):
+    async def DescribeStreamPlayInfoList(self, request):
         """查询播放数据，支持按流名称查询详细播放数据，也可按播放域名查询详细总数据，数据延迟4分钟左右。
         注意：按AppName查询请先联系工单申请，开通后配置生效预计需要5个工作日左右，具体时间以最终回复为准。
 
@@ -2326,7 +2326,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeStreamPlayInfoList", params)
+            body = await self.call("DescribeStreamPlayInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeStreamPlayInfoListResponse()
@@ -2344,7 +2344,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeStreamPushInfoList(self, request):
+    async def DescribeStreamPushInfoList(self, request):
         """查询流id的上行推流质量数据，包括音视频的帧率，码率，流逝时间，编码格式等。
 
         :param request: Request instance for DescribeStreamPushInfoList.
@@ -2354,7 +2354,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeStreamPushInfoList", params)
+            body = await self.call("DescribeStreamPushInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeStreamPushInfoListResponse()
@@ -2372,7 +2372,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeTopClientIpSumInfoList(self, request):
+    async def DescribeTopClientIpSumInfoList(self, request):
         """查询某段时间top n客户端ip汇总信息（暂支持top 1000）
 
         :param request: Request instance for DescribeTopClientIpSumInfoList.
@@ -2382,7 +2382,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeTopClientIpSumInfoList", params)
+            body = await self.call("DescribeTopClientIpSumInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeTopClientIpSumInfoListResponse()
@@ -2400,7 +2400,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DescribeVisitTopSumInfoList(self, request):
+    async def DescribeVisitTopSumInfoList(self, request):
         """查询某时间段top n的域名或流id信息（暂支持top 1000）。
 
         :param request: Request instance for DescribeVisitTopSumInfoList.
@@ -2410,7 +2410,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DescribeVisitTopSumInfoList", params)
+            body = await self.call("DescribeVisitTopSumInfoList", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DescribeVisitTopSumInfoListResponse()
@@ -2428,7 +2428,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def DropLiveStream(self, request):
+    async def DropLiveStream(self, request):
         """断开推流连接，但可以重新推流。
 
         :param request: Request instance for DropLiveStream.
@@ -2438,7 +2438,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("DropLiveStream", params)
+            body = await self.call("DropLiveStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.DropLiveStreamResponse()
@@ -2456,7 +2456,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def EnableLiveDomain(self, request):
+    async def EnableLiveDomain(self, request):
         """启用状态为停用的直播域名。
 
         :param request: Request instance for EnableLiveDomain.
@@ -2466,7 +2466,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("EnableLiveDomain", params)
+            body = await self.call("EnableLiveDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.EnableLiveDomainResponse()
@@ -2484,7 +2484,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ForbidLiveDomain(self, request):
+    async def ForbidLiveDomain(self, request):
         """停止使用某个直播域名。
 
         :param request: Request instance for ForbidLiveDomain.
@@ -2494,7 +2494,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ForbidLiveDomain", params)
+            body = await self.call("ForbidLiveDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ForbidLiveDomainResponse()
@@ -2512,7 +2512,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ForbidLiveStream(self, request):
+    async def ForbidLiveStream(self, request):
         """禁止某条流的推送，可以预设某个时刻将流恢复。
 
         :param request: Request instance for ForbidLiveStream.
@@ -2522,7 +2522,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ForbidLiveStream", params)
+            body = await self.call("ForbidLiveStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ForbidLiveStreamResponse()
@@ -2540,7 +2540,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveCallbackTemplate(self, request):
+    async def ModifyLiveCallbackTemplate(self, request):
         """修改回调模板。
 
         :param request: Request instance for ModifyLiveCallbackTemplate.
@@ -2550,7 +2550,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveCallbackTemplate", params)
+            body = await self.call("ModifyLiveCallbackTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveCallbackTemplateResponse()
@@ -2568,7 +2568,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveCert(self, request):
+    async def ModifyLiveCert(self, request):
         """修改证书
 
         :param request: Request instance for ModifyLiveCert.
@@ -2578,7 +2578,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveCert", params)
+            body = await self.call("ModifyLiveCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveCertResponse()
@@ -2596,7 +2596,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveDomainCert(self, request):
+    async def ModifyLiveDomainCert(self, request):
         """修改域名和证书绑定信息
 
         :param request: Request instance for ModifyLiveDomainCert.
@@ -2606,7 +2606,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveDomainCert", params)
+            body = await self.call("ModifyLiveDomainCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveDomainCertResponse()
@@ -2624,7 +2624,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLivePlayAuthKey(self, request):
+    async def ModifyLivePlayAuthKey(self, request):
         """修改播放鉴权key
 
         :param request: Request instance for ModifyLivePlayAuthKey.
@@ -2634,7 +2634,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLivePlayAuthKey", params)
+            body = await self.call("ModifyLivePlayAuthKey", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLivePlayAuthKeyResponse()
@@ -2652,7 +2652,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLivePlayDomain(self, request):
+    async def ModifyLivePlayDomain(self, request):
         """修改播放域名信息。
 
         :param request: Request instance for ModifyLivePlayDomain.
@@ -2662,7 +2662,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLivePlayDomain", params)
+            body = await self.call("ModifyLivePlayDomain", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLivePlayDomainResponse()
@@ -2680,7 +2680,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLivePushAuthKey(self, request):
+    async def ModifyLivePushAuthKey(self, request):
         """修改直播推流鉴权key
 
         :param request: Request instance for ModifyLivePushAuthKey.
@@ -2690,7 +2690,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLivePushAuthKey", params)
+            body = await self.call("ModifyLivePushAuthKey", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLivePushAuthKeyResponse()
@@ -2708,7 +2708,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveRecordTemplate(self, request):
+    async def ModifyLiveRecordTemplate(self, request):
         """修改录制模板配置。
 
         :param request: Request instance for ModifyLiveRecordTemplate.
@@ -2718,7 +2718,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveRecordTemplate", params)
+            body = await self.call("ModifyLiveRecordTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveRecordTemplateResponse()
@@ -2736,7 +2736,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveSnapshotTemplate(self, request):
+    async def ModifyLiveSnapshotTemplate(self, request):
         """修改截图模板配置。
 
         :param request: Request instance for ModifyLiveSnapshotTemplate.
@@ -2746,7 +2746,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveSnapshotTemplate", params)
+            body = await self.call("ModifyLiveSnapshotTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveSnapshotTemplateResponse()
@@ -2764,7 +2764,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyLiveTranscodeTemplate(self, request):
+    async def ModifyLiveTranscodeTemplate(self, request):
         """修改转码模板配置。
 
         :param request: Request instance for ModifyLiveTranscodeTemplate.
@@ -2774,7 +2774,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyLiveTranscodeTemplate", params)
+            body = await self.call("ModifyLiveTranscodeTemplate", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyLiveTranscodeTemplateResponse()
@@ -2792,7 +2792,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyPullStreamConfig(self, request):
+    async def ModifyPullStreamConfig(self, request):
         """更新拉流配置。
 
         :param request: Request instance for ModifyPullStreamConfig.
@@ -2802,7 +2802,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyPullStreamConfig", params)
+            body = await self.call("ModifyPullStreamConfig", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyPullStreamConfigResponse()
@@ -2820,7 +2820,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ModifyPullStreamStatus(self, request):
+    async def ModifyPullStreamStatus(self, request):
         """修改直播拉流配置的状态。
 
         :param request: Request instance for ModifyPullStreamStatus.
@@ -2830,7 +2830,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ModifyPullStreamStatus", params)
+            body = await self.call("ModifyPullStreamStatus", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ModifyPullStreamStatusResponse()
@@ -2848,7 +2848,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ResumeDelayLiveStream(self, request):
+    async def ResumeDelayLiveStream(self, request):
         """恢复延迟播放设置
 
         :param request: Request instance for ResumeDelayLiveStream.
@@ -2858,7 +2858,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ResumeDelayLiveStream", params)
+            body = await self.call("ResumeDelayLiveStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ResumeDelayLiveStreamResponse()
@@ -2876,7 +2876,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def ResumeLiveStream(self, request):
+    async def ResumeLiveStream(self, request):
         """恢复某条流的推流。
 
         :param request: Request instance for ResumeLiveStream.
@@ -2886,7 +2886,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("ResumeLiveStream", params)
+            body = await self.call("ResumeLiveStream", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.ResumeLiveStreamResponse()
@@ -2904,7 +2904,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def StopLiveRecord(self, request):
+    async def StopLiveRecord(self, request):
         """说明：录制后的文件存放于点播平台。用户如需使用录制功能，需首先自行开通点播账号并确保账号可用。录制文件存放后，相关费用（含存储以及下行播放流量）按照点播平台计费方式收取，请参考对应文档。
 
         :param request: Request instance for StopLiveRecord.
@@ -2914,7 +2914,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("StopLiveRecord", params)
+            body = await self.call("StopLiveRecord", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.StopLiveRecordResponse()
@@ -2932,7 +2932,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def StopRecordTask(self, request):
+    async def StopRecordTask(self, request):
         """提前结束录制，并中止运行中的录制任务。任务被成功中止后将不再启动。
 
         :param request: Request instance for StopRecordTask.
@@ -2942,7 +2942,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("StopRecordTask", params)
+            body = await self.call("StopRecordTask", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.StopRecordTaskResponse()
@@ -2960,7 +2960,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def UnBindLiveDomainCert(self, request):
+    async def UnBindLiveDomainCert(self, request):
         """解绑域名证书
 
         :param request: Request instance for UnBindLiveDomainCert.
@@ -2970,7 +2970,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("UnBindLiveDomainCert", params)
+            body = await self.call("UnBindLiveDomainCert", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.UnBindLiveDomainCertResponse()
@@ -2988,7 +2988,7 @@ class LiveClient(AbstractClient):
                 raise TencentCloudSDKException(e.message, e.message)
 
 
-    def UpdateLiveWatermark(self, request):
+    async def UpdateLiveWatermark(self, request):
         """更新水印。
 
         :param request: Request instance for UpdateLiveWatermark.
@@ -2998,7 +2998,7 @@ class LiveClient(AbstractClient):
         """
         try:
             params = request._serialize()
-            body = self.call("UpdateLiveWatermark", params)
+            body = await self.call("UpdateLiveWatermark", params)
             response = json.loads(body)
             if "Error" not in response["Response"]:
                 model = models.UpdateLiveWatermarkResponse()
